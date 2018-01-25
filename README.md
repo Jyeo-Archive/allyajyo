@@ -1,5 +1,11 @@
 # Allyajyo
-개발중인 해킹툴 "알랴죠(Allyajyo)" CTF 문제 풀이를 쉽고 빠르게!
+Allyajyo, the tool for fast-solving CTF problems</br>
+개발중인 해킹툴 "알랴죠(Allyajyo)" CTF 문제 풀이를 쉽고 빠르게!</br></br>
+This file is README.md on project Allyajyo</br>
+본 파일은 알랴죠(Allyajyo) 프로젝트의 깃허브 저장소 루트 위치에 있는 README.md입니다.
+
+## Github repository
+https://github.com/JunhoYeo/Allyajyo
 
 ## Naming  
 ```
