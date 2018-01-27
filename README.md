@@ -36,7 +36,7 @@ CTF는 Capture The Flag의 약자로 주어지는 파일, 프로그램, 웹페�
 - version 5에서의 정상동작여부 테스트 안됨
 
 3) ~~decode Caesar Cipher~~ 디버깅중  
-C언어로는 구현에 성공하였으나 Python으로 제작성하는 과정에서 오류가 발생
+C언어로는 구현에 성공하였으나 Python으로 재작성하는 과정에서 오류가 발생
 
 4) ~~decode base16/base32/base64~~ 개발중
 
