@@ -17,9 +17,9 @@ CTF는 Capture The Flag의 약자로 주어지는 파일, 프로그램, 웹페�
 
 ## What is Allyajyo?
 <ul>
-  
+
 - 단순한 인코딩의 Crypto나 간단한 Stego 문제  
-  
+
 - 웹페이지 어딘가에 있는 Flag를 찾아내는 보물찾기  
 
 - 덤프나 로그 파일에서 Flag를 찾아내는 형식의 포렌식 문제
@@ -29,23 +29,14 @@ CTF는 Capture The Flag의 약자로 주어지는 파일, 프로그램, 웹페�
 알랴죠를 사용하면 CTF 문제풀이에 걸리는 시간을 효과적으로 단축할 수 있을 것이고, 대회 종료 후 WriteUp(문제풀이 보고서) 역시 쉽게 작성이 가능할 것입니다.
 
 ## Allyajyo Features
-1) 파일의 내용 및 헥스코드를 분석하여 Flag로 의심되는 문자열(Flag-like strings)들을 찾습니다.
-- version 5에서 Flag-like string 출력 안되는 문제 디버깅중
-
-2) SECCON 2017 문제(jpeg 파일 데이터 복구)  
-- version 5에서의 정상동작여부 테스트 안됨
-
-3) ~~decode Caesar Cipher~~ 디버깅중  
-C언어로는 구현에 성공하였으나 Python으로 재작성하는 과정에서 오류가 발생
-
-4) ~~decode base16/base32/base64~~ 개발중
+~~잠꽌뫈용~~
 
 ## Development
 사용 언어(Used Programming Language):
 <ul>
-  
+
 - until version 4 : C/C++ (Compiler: TDM-GCC 4.9.2 / IDE: Dev-C++)
-  
+
 - after version 5 : Python 2.7 (Text Editor: Atom)
 </ul>
 
