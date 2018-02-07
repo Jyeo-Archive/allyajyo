@@ -1,6 +1,7 @@
 import os
 import sys
 import base64
+import pefile
 def getFileExtension(file_name):
 	file_extenstion=os.path.splitext(file_name)[1]
 	return file_extenstion
@@ -236,5 +237,5 @@ while 1:
 		data=input("keyword to delate in database : ")
 		flagDB.delate(data)
 	else:
-		sys.stdout.write("not a voild command\n")
+		sys.stdout.write("not a vaild command\n")
 	sys.stdout.write("\n");

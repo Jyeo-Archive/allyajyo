@@ -49,3 +49,6 @@ CTF는 Capture The Flag의 약자로 주어지는 파일, 프로그램, 웹페�
 점점 언어 특징을 잘 활용하고 기능 역시 추가할 예정</br>
 +인터페이스 역시 사용자 친화적으로 개발 중</br>
 Website crawling feature in development
+
+## Contributors
+@HyungJu(HyungJu) : First Issue (mistyped message)
