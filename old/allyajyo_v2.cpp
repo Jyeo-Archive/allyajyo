@@ -1,92 +1,94 @@
-#include <stdio.h> //stdio.h Çì´õÆÄÀÏ  
-#include <stdlib.h> //stdlib.h Çì´õÆÄÀÏ  
-#include <stdbool.h> //stdbool.h Çì´õÆÄÀÏ  
-#include <windows.h> //windows.h Çì´õÆÄÀÏ  
+//allyajyo_v2.cpp
+
+#include <stdio.h> //stdio.h ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+#include <stdlib.h> //stdlib.h ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+#include <stdbool.h> //stdbool.h ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+#include <windows.h> //windows.h ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 #define BUFFER_SIZE 16
-void setcolor(int text_color, int background_color){ //»ö»óº¯°æ 
-    text_color &= 0xf; //text »ö 
-    background_color &= 0xf; //background »ö  
+void setcolor(int text_color, int background_color){ //ï¿½ï¿½ï¿½óº¯°ï¿½
+    text_color &= 0xf; //text ï¿½ï¿½
+    background_color &= 0xf; //background ï¿½ï¿½
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), (background_color<<4) | text_color);
 }
 int main(){
-	setcolor(10, 5); //º¸¶ó»ö¹è°æ¿¡ ÃÊ·Ï±Û¾¾  
-	system("cls"); //È­¸éÃÊ±âÈ­  
-    FILE *file=NULL; //ÆÄÀÏÆ÷ÀÎÅÍ ¼±¾ð  
-    char file_name[100]; //ÆÄÀÏ ÀÌ¸§/°æ·Î <=¿¡·¯¹æÁöÃ³¸® ¼öÁ¤Á»  
-    printf("file name to analyze : "); 
-    scanf("%s", &file_name); //ºÐ¼®ÇÒ ÆÄÀÏ ÀÌ¸§/°æ·Î ÀÔ·Â¹ÞÀ½  
-    file=fopen(file_name,"rb"); //ÆÄÀÏ ¿­±â  
-    if(file==NULL) return -1; //¿¡·¯ Ã³¸®  
-    fseek(file, 0, SEEK_END); 
-    int file_size = ftell(file); //filesize¸¦ ±¸ÇÔ 
-	rewind(file); //ÆÄÀÏÆ÷ÀÎÅÍ rewind  
-	int *file_data=(int*)malloc(sizeof(int)*file_size); //file_data ¹è¿­À» »ý¼º, filesize Å©±â¸¸Å­ µ¿ÀûÇÒ´ç 
-    for(int i=0; i<file_size; i++) file_data[i]=0; //¹è¿­ ÃÊ±âÈ­  
-    int file_data_index=0; //index of file_data ¼±¾ð, ÃÊ±âÈ­  
+	setcolor(10, 5); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½æ¿¡ ï¿½Ê·Ï±Û¾ï¿½
+	system("cls"); //È­ï¿½ï¿½ï¿½Ê±ï¿½È­
+    FILE *file=NULL; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    char file_name[100]; //ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½/ï¿½ï¿½ï¿½ï¿½ <=ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    printf("file name to analyze : ");
+    scanf("%s", &file_name); //ï¿½Ð¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½/ï¿½ï¿½ï¿½ï¿½ ï¿½Ô·Â¹ï¿½ï¿½ï¿½
+    file=fopen(file_name,"rb"); //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    if(file==NULL) return -1; //ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
+    fseek(file, 0, SEEK_END);
+    int file_size = ftell(file); //filesizeï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	rewind(file); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ rewind
+	int *file_data=(int*)malloc(sizeof(int)*file_size); //file_data ï¿½è¿­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, filesize Å©ï¿½â¸¸Å­ ï¿½ï¿½ï¿½ï¿½ï¿½Ò´ï¿½
+    for(int i=0; i<file_size; i++) file_data[i]=0; //ï¿½è¿­ ï¿½Ê±ï¿½È­
+    int file_data_index=0; //index of file_data ï¿½ï¿½ï¿½ï¿½, ï¿½Ê±ï¿½È­
     char buffer[BUFFER_SIZE]={0};
-    //ÇÑ ¹®ÀÚ¾¿ intÇüÀ¸·Î ÆÄÀÏÀ¸·ÎºÎÅÍ ÀÔ·Â¹Þ¾Æ file_data¿¡ ÀúÀå  
-    for(int read=0; (read=fread(&buffer, sizeof(char), BUFFER_SIZE, file))!=0;){ //¾ðÁ¦ ÀÌºÎºÐ ¸Þ¸ð¸® Á» ´õ Àû°Ô¸Ô°Ô ¼öÁ¤ÇÒ°Í 
+    //ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¾ï¿½ intï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îºï¿½ï¿½ï¿½ ï¿½Ô·Â¹Þ¾ï¿½ file_dataï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    for(int read=0; (read=fread(&buffer, sizeof(char), BUFFER_SIZE, file))!=0;){ //ï¿½ï¿½ï¿½ï¿½ ï¿½ÌºÎºï¿½ ï¿½Þ¸ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½Ô¸Ô°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ò°ï¿½
     	for(int i=0; i<read; i++){
             file_data[file_data_index]=buffer[i]&0xFF;
             file_data_index++;
         }
 	}
-    fclose(file); //close file  
+    fclose(file); //close file
     /*
     printf("%.10X", file_data_index);
-    //ÀÌÁ¦ file_data¿¡¼­ ÇÏ³ª¾¿ hex¸¦ Á¶°Ç¿¡ ¸Â°Ô ÀÐ¾î¼­ »Ñ·ÁÁÖ´Â ÀÏ¸¸ ³²¾Ò³× ¤¾  
-    //ÀÏ½Ã·Î ÁÖ¼®Ã³¸®  
+    //ï¿½ï¿½ï¿½ï¿½ file_dataï¿½ï¿½ï¿½ï¿½ ï¿½Ï³ï¿½ï¿½ï¿½ hexï¿½ï¿½ ï¿½ï¿½ï¿½Ç¿ï¿½ ï¿½Â°ï¿½ ï¿½Ð¾î¼­ ï¿½Ñ·ï¿½ï¿½Ö´ï¿½ ï¿½Ï¸ï¿½ ï¿½ï¿½ï¿½Ò³ï¿½ ï¿½ï¿½
+    //ï¿½Ï½Ã·ï¿½ ï¿½Ö¼ï¿½Ã³ï¿½ï¿½
 	setcolor(14, 5);
     printf("[Offset]");
 	for(int i=0; i<13-8+1; i++) printf(" ");
 	setcolor(10, 5);
 	printf("[Hex]");
 	for(int i=0; i<(BUFFER_SIZE-1)*3+2; i++) printf(" ");
-	setcolor(15, 5); 
+	setcolor(15, 5);
 	printf("[Strings]\n");
 	setcolor(10, 5);*/
-	//print Ãâ·Â Çü½Ä
+	//print ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	int file_data_length;
 	if(file_data_index%BUFFER_SIZE==0) file_data_length=file_data_index/BUFFER_SIZE;
 	else file_data_length=(file_data_index/BUFFER_SIZE)+1;
 	int offset=0, read=0;
-	//file_data_length¿¡ Á¦´ë·Î ÆÄÀÏ ±æÀÌ°¡ ÀúÀåµÊ 
-	//file_data¿¡¼­ data¸¦ BUFFER_SIZE°³¾¿ °¡Á®¿Í ÀúÀåÇÏ°í, °¡Á®¿Â µ¥ÀÌÅÍ ¼ö¸¦ read¿¡ ÀúÀå 
-	//»õ·Î¿î ¹è¿­À» ¸¸µé°í µ¥ÀÌÅÍ¸¦ ÇÑ ÁÙ¾¿ ¹Þ¾Æ¿ÀÀÚ. 
-	//ÀÏ½Ã·Î ÁÖ¼®Ã³¸®
-	/*  
-	for(int i=0; i<file_data_length; i++){ //file_data_length´Â Ãâ·ÂÇØ¾ß ÇÒ lineÀÇ ¼ö  
-	    //¿ÀÇÁ¼Â Ãâ·Â**************************************************  
-	    setcolor(14, 5); 
-        printf("%.10X | ", offset); //BUFFER_SIZE°³ hex¾¿ ÆÄÀÏ¿¡¼­ ÀÐ¾î 1ÁÙ¿¡ Ãâ·ÂÇÔ. offset=¿ÀÇÁ¼Â 
+	//file_data_lengthï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	//file_dataï¿½ï¿½ï¿½ï¿½ dataï¿½ï¿½ BUFFER_SIZEï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ readï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	//ï¿½ï¿½ï¿½Î¿ï¿½ ï¿½è¿­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½ï¿½ ï¿½Ù¾ï¿½ ï¿½Þ¾Æ¿ï¿½ï¿½ï¿½.
+	//ï¿½Ï½Ã·ï¿½ ï¿½Ö¼ï¿½Ã³ï¿½ï¿½
+	/*
+	for(int i=0; i<file_data_length; i++){ //file_data_lengthï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ ï¿½ï¿½ lineï¿½ï¿½ ï¿½ï¿½
+	    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½**************************************************
+	    setcolor(14, 5);
+        printf("%.10X | ", offset); //BUFFER_SIZEï¿½ï¿½ hexï¿½ï¿½ ï¿½ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ ï¿½Ð¾ï¿½ 1ï¿½Ù¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½. offset=ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         setcolor(10, 5);
-		//ÁÙ ¼ö¸¸Å­ ¹Ýº¹ÇÑ´Ù  
-		int n=0; //ÇØ´ç ÁÙ¿¡¼­ ¸î ¹øÂ° hex°ªÀÎ°¡ is n 
-	    int counter=0; //°ø¹é 
-		for(int j=read; j<read+BUFFER_SIZE; j++){ //BUFFER_SIZE°³¾¿ ÀÐ¾î¿È  
-		    if(j==file_data_index) break; //ÆÄÀÏÀÇ ³¡¿¡ ´Ù´Ù¸£¸é break; 
+		//ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Å­ ï¿½Ýºï¿½ï¿½Ñ´ï¿½
+		int n=0; //ï¿½Ø´ï¿½ ï¿½Ù¿ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½Â° hexï¿½ï¿½ï¿½Î°ï¿½ is n
+	    int counter=0; //ï¿½ï¿½ï¿½ï¿½
+		for(int j=read; j<read+BUFFER_SIZE; j++){ //BUFFER_SIZEï¿½ï¿½ï¿½ï¿½ ï¿½Ð¾ï¿½ï¿½ï¿½
+		    if(j==file_data_index) break; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ù´Ù¸ï¿½ï¿½ï¿½ break;
 			if(n%4==0 || n==0){
         		printf(" ");
         		counter++;
-			}  
+			}
 			printf("%.2X ", file_data[j]);
 			if(n==BUFFER_SIZE-1){
             	printf(" ");
             	counter++;
 			}
 			n++;
-		} 
+		}
 		offset+=n;
-		//°ø¹éÃ³¸®**************************************************  
+		//ï¿½ï¿½ï¿½ï¿½Ã³ï¿½ï¿½**************************************************
         if((BUFFER_SIZE*3+1*5)-(n*3+counter*1)>0){
         	for(int j=0; j<(BUFFER_SIZE*3+1*5)-(n*3+counter*1)-1; j++) printf(" ");
-		    //"| " ¹®ÀÚ¿­Àº 2¹ÙÀÌÆ®, ÇÏ³ªÀÇ Çí½º µ¥ÀÌÅÍ¿Í °ø¹éÀº 3¹ÙÀÌÆ® Â÷Áö 
+		    //"| " ï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ 2ï¿½ï¿½ï¿½ï¿½Æ®, ï¿½Ï³ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 3ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
             printf(" ");
 		}
-        //string Ãâ·Â**************************************************  
-		setcolor(15, 5);  
+        //string ï¿½ï¿½ï¿½ï¿½**************************************************
+		setcolor(15, 5);
         printf("| ");
-        for (int j=read; j<read+(int)BUFFER_SIZE; j++) { //text strings Ãâ·Â 
+        for (int j=read; j<read+(int)BUFFER_SIZE; j++) { //text strings ï¿½ï¿½ï¿½ï¿½
             if(file_data[j]>=0x20 && file_data[j]<=0x7E) printf("%c", file_data[j]);
             else printf(".");
         }
@@ -105,7 +107,7 @@ int main(){
 			}
 			if(file_data[i+1]=='L'){
 				if(file_data[i+2]=='A'){
-					if(file_data[i+3]=='G') flag=2; //2 for FLAG 
+					if(file_data[i+3]=='G') flag=2; //2 for FLAG
 				}
 			}
 		}
@@ -131,8 +133,8 @@ int main(){
 	    	printf(" \n");
 	    	setcolor(0, 7);
 		    for(int j=startpoint; true; j++){
-		    	if(!(file_data[j]>=0x20 && file_data[j]<=0x7E)) break; //'.'ÀÌ ³ª¿Ã ¶§±îÁö ³»¿ë Ãâ·Â  
-		    	else if(file_data[j]=='{' || file_data[j]=='}' || file_data[j]=='_'){ //Áß°ýÈ£³ª ¾ð´õ¹Ù ³ª¿À¸é ÄÃ·¯¸µ  
+		    	if(!(file_data[j]>=0x20 && file_data[j]<=0x7E)) break; //'.'ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+		    	else if(file_data[j]=='{' || file_data[j]=='}' || file_data[j]=='_'){ //ï¿½ß°ï¿½È£ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½ï¿½
 		    		setcolor(0, 14);
 		    		printf("%c", file_data[j]);
 		    		setcolor(0, 7);
@@ -140,8 +142,8 @@ int main(){
 		    	else{
 		    		printf("%c", file_data[j]);
 				}
-			} 
-			setcolor(10, 5); 
+			}
+			setcolor(10, 5);
 			printf(" \n");
 		}
 	}
@@ -151,8 +153,8 @@ int main(){
 		    printf("found JPEG structure error! 0x%.2X is not 0x00 after 0x00 0xFF", file_data[i+2]);
 		    setcolor(10, 5);
 		    printf("\n");
-		    file=fopen(file_name,"wb"); //ÆÄÀÏ ¿­±â  
-            if(file==NULL) return -1; //¿¡·¯ Ã³¸®  
+		    file=fopen(file_name,"wb"); //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+            if(file==NULL) return -1; //ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
             file_data[i+2]=0x00;
             for(int j=0; j<file_data_index; j++){
             	//printf("offset: %.10X / file_data: %.2X\n", offset, file_data[j]);

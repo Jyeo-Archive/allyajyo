@@ -63,4 +63,5 @@ CTF는 Capture The Flag의 약자로 주어지는 파일, 프로그램, 웹페�
 얄랴죠 프로젝트에 기여해 주셔서 감사합니다.</br>
 
 - <strong>@HyungJu(HyungJu)</strong> : <a href="https://github.com/JunhoYeo/Allyajyo/issues/1">First Issue</a> (mistyped message)
+
 - <strong>@Devonnuri(뎁온누리)</strong> : 알랴죠에서 파생된 프로젝트 <a href="https://github.com/Devonnuri">Allyajyo-GUI</a> 개발

@@ -1,14 +1,16 @@
-#include <stdio.h> //stdio.h Çì´õÆÄÀÏ  
-#include <stdlib.h> //stdlib.h Çì´õÆÄÀÏ  
-#include <stdbool.h> //stdbool.h Çì´õÆÄÀÏ  
-#include <windows.h> //windows.h Çì´õÆÄÀÏ   
-#define BUFFER_SIZE 16 //Hex viewer¿¡¼­ ÇÑ ÁÙ¿¡ Ãâ·ÂÇÒ Hex codeÀÇ ¼ö  
-void setcolor(int text_color, int background_color){ //»ö»óº¯°æ 
-	text_color &= 0xf; //text »ö 
-	background_color &= 0xf; //background »ö  
+//allyajyo_v4.cpp
+
+#include <stdio.h> //stdio.h ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+#include <stdlib.h> //stdlib.h ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+#include <stdbool.h> //stdbool.h ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+#include <windows.h> //windows.h ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+#define BUFFER_SIZE 16 //Hex viewerï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ù¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Hex codeï¿½ï¿½ ï¿½ï¿½
+void setcolor(int text_color, int background_color){ //ï¿½ï¿½ï¿½óº¯°ï¿½
+	text_color &= 0xf; //text ï¿½ï¿½
+	background_color &= 0xf; //background ï¿½ï¿½
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), (background_color<<4) | text_color);
 }
-char* GetFileExtenstion(char *file_name){ //ÆÄÀÏ È®ÀåÀÚ¸¦ ±¸ÇÏ´Â ÇÔ¼ö  
+char* GetFileExtenstion(char *file_name){ //ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½Ú¸ï¿½ ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Ô¼ï¿½
 	int file_name_length=strlen(file_name);
     file_name+=file_name_length;
     char *file_extenstion;
@@ -22,86 +24,86 @@ char* GetFileExtenstion(char *file_name){ //ÆÄÀÏ È®ÀåÀÚ¸¦ ±¸ÇÏ´Â ÇÔ¼ö
     return file_extenstion;
 }
 
-class hexViewer{ //Hex viewer Å¬·¡½º (Àú´Â ºÐ¸íÈ÷ È¥Á¾ÀÌ¶ó°í Çß½À´Ï´Ù) 
+class hexViewer{ //Hex viewer Å¬ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ ï¿½Ð¸ï¿½ï¿½ï¿½ È¥ï¿½ï¿½ï¿½Ì¶ï¿½ï¿½ï¿½ ï¿½ß½ï¿½ï¿½Ï´ï¿½)
 private:
-	char *filename; //ÆÄÀÏ ÀÌ¸§/°æ·Î 
-	int *file_data; //ÆÄÀÏ µ¥ÀÌÅÍ  
-	int file_data_index; //index of file_data ¼±¾ð, ÃÊ±âÈ­  
+	char *filename; //ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½/ï¿½ï¿½ï¿½ï¿½
+	int *file_data; //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	int file_data_index; //index of file_data ï¿½ï¿½ï¿½ï¿½, ï¿½Ê±ï¿½È­
 public:
 	void openFile(char *_file_name);
 	void viewCode();
 	void findFlag();
 	void correctJpegData(); //
-	void freeMemory(); //¸Þ¸ð¸® ÇØÁ¦ ÇÔ¼ö  
+	void freeMemory(); //ï¿½Þ¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½
 };
 void hexViewer::openFile(char *_file_name){
-	FILE *file=NULL; //ÆÄÀÏÆ÷ÀÎÅÍ ¼±¾ð  
+	FILE *file=NULL; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	filename=_file_name;
-	file=fopen(filename,"rb"); //ÆÄÀÏ ¿­±â  
-	if(file==NULL) exit(1); //¿¡·¯ Ã³¸®  
-	fseek(file, 0, SEEK_END); 
-	int file_size = ftell(file); //filesize¸¦ ±¸ÇÔ 
-	rewind(file); //ÆÄÀÏÆ÷ÀÎÅÍ rewind  
-	file_data=(int*)malloc(sizeof(int)*file_size); //file_data ¹è¿­À» »ý¼º, filesize Å©±â¸¸Å­ µ¿ÀûÇÒ´ç
-	file_data_index=0; 
-	for(int i=0; i<file_size; i++) file_data[i]=0; //¹è¿­ ÃÊ±âÈ­  
+	file=fopen(filename,"rb"); //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	if(file==NULL) exit(1); //ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
+	fseek(file, 0, SEEK_END);
+	int file_size = ftell(file); //filesizeï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	rewind(file); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ rewind
+	file_data=(int*)malloc(sizeof(int)*file_size); //file_data ï¿½è¿­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, filesize Å©ï¿½â¸¸Å­ ï¿½ï¿½ï¿½ï¿½ï¿½Ò´ï¿½
+	file_data_index=0;
+	for(int i=0; i<file_size; i++) file_data[i]=0; //ï¿½è¿­ ï¿½Ê±ï¿½È­
 	char buffer[BUFFER_SIZE]={0};
-	//ÇÑ ¹®ÀÚ¾¿ intÇüÀ¸·Î ÆÄÀÏÀ¸·ÎºÎÅÍ ÀÔ·Â¹Þ¾Æ file_data¿¡ ÀúÀå  
-	for(int read=0; (read=fread(&buffer, sizeof(char), BUFFER_SIZE, file))!=0;){ //¾ðÁ¦ ÀÌºÎºÐ ¸Þ¸ð¸® Á» ´õ Àû°Ô¸Ô°Ô ¼öÁ¤ÇÒ°Í 
+	//ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¾ï¿½ intï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îºï¿½ï¿½ï¿½ ï¿½Ô·Â¹Þ¾ï¿½ file_dataï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	for(int read=0; (read=fread(&buffer, sizeof(char), BUFFER_SIZE, file))!=0;){ //ï¿½ï¿½ï¿½ï¿½ ï¿½ÌºÎºï¿½ ï¿½Þ¸ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½Ô¸Ô°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ò°ï¿½
 		for(int i=0; i<read; i++){
 			file_data[file_data_index]=buffer[i]&0xFF;
 			file_data_index++;
 		}
 	}
-	fclose(file); //close file  
+	fclose(file); //close file
 }
-void hexViewer::viewCode(){ 
+void hexViewer::viewCode(){
 	setcolor(14, 5);
     printf("[Offset]");
-	for(int i=0; i<6; i++) printf(" "); //ÀûÀýÇÑ °ø¹é Ãß°¡ 
+	for(int i=0; i<6; i++) printf(" "); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
 	setcolor(10, 5);
 	printf("[Hex]");
-	for(int i=0; i<(BUFFER_SIZE-1)*3+2; i++) printf(" "); //ÀûÀýÇÑ °ø¹é Ãß°¡ 
-	setcolor(15, 5); 
-	printf("[Strings]\n"); //ÀûÀýÇÑ °ø¹é Ãß°¡ 
+	for(int i=0; i<(BUFFER_SIZE-1)*3+2; i++) printf(" "); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
+	setcolor(15, 5);
+	printf("[Strings]\n"); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
 	setcolor(10, 5);
 	int file_data_length;
 	if(file_data_index%BUFFER_SIZE==0) file_data_length=file_data_index/BUFFER_SIZE;
 	else file_data_length=(file_data_index/BUFFER_SIZE)+1;
 	int offset=0, read=0;
-	for(int i=0; i<file_data_length; i++){ //file_data_length´Â Ãâ·ÂÇØ¾ß ÇÒ lineÀÇ ¼ö  
-	    //¿ÀÇÁ¼Â Ãâ·Â**************************************************  
-	    setcolor(14, 5); 
-        printf("%.10X | ", offset); //BUFFER_SIZE°³ hex¾¿ ÆÄÀÏ¿¡¼­ ÀÐ¾î 1ÁÙ¿¡ Ãâ·ÂÇÔ. offset=¿ÀÇÁ¼Â 
+	for(int i=0; i<file_data_length; i++){ //file_data_lengthï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ ï¿½ï¿½ lineï¿½ï¿½ ï¿½ï¿½
+	    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½**************************************************
+	    setcolor(14, 5);
+        printf("%.10X | ", offset); //BUFFER_SIZEï¿½ï¿½ hexï¿½ï¿½ ï¿½ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ ï¿½Ð¾ï¿½ 1ï¿½Ù¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½. offset=ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         setcolor(10, 5);
-		//ÁÙ ¼ö¸¸Å­ ¹Ýº¹ÇÑ´Ù  
-		int n=0; //ÇØ´ç ÁÙ¿¡¼­ ¸î ¹øÂ° hex°ªÀÎ°¡ is n 
-	    int counter=0; //°ø¹é 
-		for(int j=read; j<read+BUFFER_SIZE; j++){ //BUFFER_SIZE°³¾¿ ÀÐ¾î¿È  
-		    if(j==file_data_index) break; //ÆÄÀÏÀÇ ³¡¿¡ ´Ù´Ù¸£¸é break; 
-		    //Hex data 4°³ Ãâ·ÂÇÒ ¶§¸¶´Ù ÇÑ Ä­¾¿ ´õ °ø¹éÀ» ³Ö¾îÁà¼­ ÀÌ»Ú°Ô ÇØÁÜ  
-			if(n%4==0 || n==0){ 
+		//ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Å­ ï¿½Ýºï¿½ï¿½Ñ´ï¿½
+		int n=0; //ï¿½Ø´ï¿½ ï¿½Ù¿ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½Â° hexï¿½ï¿½ï¿½Î°ï¿½ is n
+	    int counter=0; //ï¿½ï¿½ï¿½ï¿½
+		for(int j=read; j<read+BUFFER_SIZE; j++){ //BUFFER_SIZEï¿½ï¿½ï¿½ï¿½ ï¿½Ð¾ï¿½ï¿½ï¿½
+		    if(j==file_data_index) break; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ù´Ù¸ï¿½ï¿½ï¿½ break;
+		    //Hex data 4ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ Ä­ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¾ï¿½ï¿½à¼­ ï¿½Ì»Ú°ï¿½ ï¿½ï¿½ï¿½ï¿½
+			if(n%4==0 || n==0){
         		printf(" ");
         		counter++;
-			}  
-			printf("%.2X ", file_data[j]); //2ÀÚ¸®·Î Hex data Ãâ·Â  
+			}
+			printf("%.2X ", file_data[j]); //2ï¿½Ú¸ï¿½ï¿½ï¿½ Hex data ï¿½ï¿½ï¿½ï¿½
 			if(n==BUFFER_SIZE-1){
             	printf(" ");
             	counter++;
 			}
 			n++;
-		} 
+		}
 		offset+=n;
-		//°ø¹éÃ³¸®**************************************************  
+		//ï¿½ï¿½ï¿½ï¿½Ã³ï¿½ï¿½**************************************************
         if((BUFFER_SIZE*3+5)-(n*3+counter)>0){
         	for(int j=0; j<(BUFFER_SIZE*3+5)-(n*3+counter)-1; j++) printf(" ");
-		    //"| " ¹®ÀÚ¿­Àº 2¹ÙÀÌÆ®, ÇÏ³ªÀÇ Çí½º µ¥ÀÌÅÍ¿Í °ø¹éÀº 3¹ÙÀÌÆ® Â÷Áö 
+		    //"| " ï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ 2ï¿½ï¿½ï¿½ï¿½Æ®, ï¿½Ï³ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 3ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
             printf(" ");
 		}
-        //string Ãâ·Â**************************************************  
-		setcolor(15, 5);  
+        //string ï¿½ï¿½ï¿½ï¿½**************************************************
+		setcolor(15, 5);
         printf("| ");
-        for (int j=read; j<read+(int)BUFFER_SIZE; j++) { //text strings Ãâ·Â 
+        for (int j=read; j<read+(int)BUFFER_SIZE; j++) { //text strings ï¿½ï¿½ï¿½ï¿½
             if(file_data[j]>=0x20 && file_data[j]<=0x7E) printf("%c", file_data[j]);
             else printf(".");
         }
@@ -111,26 +113,26 @@ void hexViewer::viewCode(){
 	}
 }
 void hexViewer::findFlag(){
-	//Å°¿öµå°¡ ÀúÀåµÈ ÆÄÀÏ¿¡¼­ºÎÅÍ ÀÔ·Â¹Þ¾Æ strstr() µîÀ¸·Î °Ë»öÇÏ´Â ±¸Á¶·Î ¼öÁ¤ÇØ¾ß ÇÏ´Âµ¥ 
-	//±ÍÂúÀ¸´Ï ±×³É ±×°Ç ÆÄÀÌ½ãÀ¸·Î ±¸ÇöÇØ¹ö¸®´Â°É·ç~  
+	//Å°ï¿½ï¿½ï¿½å°¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô·Â¹Þ¾ï¿½ strstr() ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ ï¿½Ï´Âµï¿½
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½×³ï¿½ ï¿½×°ï¿½ ï¿½ï¿½ï¿½Ì½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¹ï¿½ï¿½ï¿½ï¿½Â°É·ï¿½~
 	char keyword[15]="flag";
 	for(int i=0; i<file_data_index; i++){
-		int flag=0, weight=0, startpoint; 
+		int flag=0, weight=0, startpoint;
 		for(int j=0; j<strlen(keyword); j++){
 			if(j==0) startpoint=i;
 			if(file_data[i+weight]!=keyword[j]) break;
 			weight++;
 			if(j==strlen(keyword)-1) flag=1;
 		}
-		if(flag!=0){ //Flag-like stringÀÌ ¹ß°ßµÇ¸é  
+		if(flag!=0){ //Flag-like stringï¿½ï¿½ ï¿½ß°ßµÇ¸ï¿½
 			setcolor(12, 0);
-			printf("***!!FLAG-LIKE STRING DISCOVERED!!***"); //¾È³» ¸Þ¼¼Áö Ãâ·Â  
+			printf("***!!FLAG-LIKE STRING DISCOVERED!!***"); //ï¿½È³ï¿½ ï¿½Þ¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			setcolor(10, 5);
 			printf(" \n");
 			setcolor(0, 7);
 			for(int j=startpoint; true; j++){
-				if(!(file_data[j]>=0x20 && file_data[j]<=0x7E)) break; //'.'ÀÌ ³ª¿Ã ¶§±îÁö ³»¿ë Ãâ·Â  
-				else if(file_data[j]=='{' || file_data[j]=='}' || file_data[j]=='_'){ //Áß°ýÈ£³ª ¾ð´õ¹Ù ³ª¿À¸é ÄÃ·¯¸µ  
+				if(!(file_data[j]>=0x20 && file_data[j]<=0x7E)) break; //'.'ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+				else if(file_data[j]=='{' || file_data[j]=='}' || file_data[j]=='_'){ //ï¿½ß°ï¿½È£ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½ï¿½
 					setcolor(0, 14);
 					printf("%c", file_data[j]);
 					setcolor(0, 7);
@@ -138,8 +140,8 @@ void hexViewer::findFlag(){
 				else{
 					printf("%c", file_data[j]);
 				}
-			} 
-			setcolor(10, 5); 
+			}
+			setcolor(10, 5);
 			printf(" \n");
 		}
 	}
@@ -151,9 +153,9 @@ void hexViewer::correctJpegData(){
 		    printf("found JPEG structure error! 0x%.2X is not 0x00 after 0x00 0xFF", file_data[i+2]);
 		    setcolor(10, 5);
 		    printf("\n");
-		    FILE *file=NULL; //ÆÄÀÏÆ÷ÀÎÅÍ ¼±¾ð  
-		    file=fopen(filename,"wb"); //ÆÄÀÏ ¿­±â  
-            if(file==NULL) exit(1); //¿¡·¯ Ã³¸®  
+		    FILE *file=NULL; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+		    file=fopen(filename,"wb"); //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+            if(file==NULL) exit(1); //ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
             file_data[i+2]=0x00;
             for(int j=0; j<file_data_index; j++){
             	fprintf(file, "%c", file_data[j]);
@@ -167,23 +169,23 @@ void hexViewer::correctJpegData(){
 	}
 }
 void hexViewer::freeMemory(){
-	free(file_data); //µ¿ÀûÇÒ´çÇÑ file_data ¸Þ¸ð¸® ÇØÁ¦  
+	free(file_data); //ï¿½ï¿½ï¿½ï¿½ï¿½Ò´ï¿½ï¿½ï¿½ file_data ï¿½Þ¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 }
 
-int main(){ //main ÇÔ¼ö  
-	setcolor(10, 5); //º¸¶ó»ö¹è°æ¿¡ ÃÊ·Ï±Û¾¾  
-	system("cls"); //È­¸é ÃÊ±âÈ­  
-	char file_name[100]; //ÆÄÀÏ ÀÌ¸§/°æ·Î <=¿¡·¯¹æÁöÃ³¸® ¼öÁ¤Á»  
-	printf("file name to analyze : "); 
-	scanf("%s", &file_name); //ºÐ¼®ÇÒ ÆÄÀÏ ÀÌ¸§/°æ·Î ÀÔ·Â¹ÞÀ½  
-	hexViewer hexviewer; //hexViewer Å¬·¡½º °´Á¦ hexviewer »ý¼º  
-	hexviewer.openFile(file_name); //file_nameÀÇ ÆÄÀÏ ¿­±â  
-	//hexviewer.viewCode(); //Hex data Ãâ·Â  
-	hexviewer.findFlag(); //ÆÄÀÏÀÇ ¹ÙÀÌ³Ê¸®¿¡¼­ Flag °Ë»ö  
-	if(strcmp(GetFileExtenstion(file_name), "jpeg")==0){ //ÆÄÀÏ È®ÀåÀÚ°¡ jpegÀÎ °æ¿ì 
-		hexviewer.correctJpegData(); //jpeg ÆÄÀÏ ¿¡·¯°¡ ÀÖ´ÂÁö È®ÀÎÇÏ°í ÀÖÀ¸¸é ¼öÁ¤ ÈÄ ÀúÀå 
+int main(){ //main ï¿½Ô¼ï¿½
+	setcolor(10, 5); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½æ¿¡ ï¿½Ê·Ï±Û¾ï¿½
+	system("cls"); //È­ï¿½ï¿½ ï¿½Ê±ï¿½È­
+	char file_name[100]; //ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½/ï¿½ï¿½ï¿½ï¿½ <=ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	printf("file name to analyze : ");
+	scanf("%s", &file_name); //ï¿½Ð¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½/ï¿½ï¿½ï¿½ï¿½ ï¿½Ô·Â¹ï¿½ï¿½ï¿½
+	hexViewer hexviewer; //hexViewer Å¬ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ hexviewer ï¿½ï¿½ï¿½ï¿½
+	hexviewer.openFile(file_name); //file_nameï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	//hexviewer.viewCode(); //Hex data ï¿½ï¿½ï¿½ï¿½
+	hexviewer.findFlag(); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì³Ê¸ï¿½ï¿½ï¿½ï¿½ï¿½ Flag ï¿½Ë»ï¿½
+	if(strcmp(GetFileExtenstion(file_name), "jpeg")==0){ //ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½Ú°ï¿½ jpegï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+		hexviewer.correctJpegData(); //jpeg ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	}
 	hexviewer.freeMemory();
-	system("pause"); 
-	return 0; //ÇÁ·Î±×·¥ Á¾·á  
+	system("pause");
+	return 0; //ï¿½ï¿½ï¿½Î±×·ï¿½ ï¿½ï¿½ï¿½ï¿½
 }
