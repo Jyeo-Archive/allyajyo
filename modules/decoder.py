@@ -1,5 +1,5 @@
 import sys
-class Decoder:
+class Decoder: #디버깅 중에 있음
 	def caesar_cipher(self, data):
 		key=0
 		for i in range(0, 26):

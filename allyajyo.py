@@ -1,7 +1,7 @@
 import os
 import sys
-import base64
-import pefile
+#import base64
+#import pefile
 from modules import database
 from modules import hexViewer
 from modules import decoder
@@ -39,10 +39,6 @@ while 1:
 			sys.stdout.write("cannot search for flags\n")
 		if getFileExtension(file_name) is ".jpg" or ".jpeg":
 			hexviewer.correctJpegData()
-		'''
-		if getFileExtension(file_name) is ".ppsm":
-			hexviewer.disableVbaPassword()
-		'''
 	elif command=="2":
 		data=input("data to decode : ")
 		decoder=decoder.Decoder()

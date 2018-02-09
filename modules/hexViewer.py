@@ -84,27 +84,20 @@ class hexViewer:
 						sys.stdout.write(chr(self.filedata[j]))
 				sys.stdout.write("\n")
 	def correctJpegData(self):
+		self.filedata=bytearray(self.filedata)
 		for i in range(32, self.filedata_size):
-			if self.filedata[i]==0x00 and self.filedata[i+1]==0xFF and self.filedata[i+2] is not 0x00:
+			if self.filedata[i]==0x00 and self.filedata[i+1]==0xFF and self.filedata[i+2]!=0x00:
 				sys.stdout.write("found JPEG structure error!");
 				sys.stdout.write(" %02X "%(self.filedata[i+2]))
 				sys.stdout.write("is not 0x00 after 0x00 0xFF")
 				sys.stdout.write("\n")
 				try:
 					f=open(self.filename, "wb")
+					self.filedata[i+2]=0x00
+					f.write(self.filedata)
+					f.close()
+					sys.stdout.write("data corrected!")
 				except IOError:
-					sys.exit()
-				self.filedata[i+2]=0
-				for j in range(0, self.filedata_size):
-					f.write(self.filedata[j])
-				f.close()
-				sys.stdout.write("data corrected!")
+					sys.stdout.write("cannot open file '%s'"%self.filename)
 				sys.stdout.write("\n")
-	'''
-	def disableVbaPassword(self):
-		for i in self.filedata:
-			if ord(self.filedata[i]) is 0x44:
-				if ord(self.filedata[i+1]) is 0x50:
-					if ord(self.filedata[i+2]) is 0x42:
-						self.filedata[i+2]=chr(0x78)
-	'''
+		self.filedata=bytes(self.filedata)
