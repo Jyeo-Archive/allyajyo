@@ -1,3 +1,5 @@
+#allyajyo_v7.py
+
 import os
 import sys
 #import base64
@@ -5,7 +7,6 @@ import sys
 from modules import database
 from modules import hexViewer
 from modules import decoder
-from modules import visualizer
 def getFileExtension(file_name):
 	file_extenstion=os.path.splitext(file_name)[1]
 	return file_extenstion
@@ -54,9 +55,6 @@ while 1:
 	elif command=="delate keyword" or command=="delkey":
 		data=input("keyword to delate in database : ")
 		flagDB.delate(data)
-	elif command=="visualize" or command=="visual":
-		file_name=input("file name to visualize : ")
-		visualizer.visualizer(file_name)
 	else:
 		sys.stdout.write("not a vaild command\n")
 	sys.stdout.write("\n")

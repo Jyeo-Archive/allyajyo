@@ -101,6 +101,23 @@ SECCON CTF 2017의 'JPEG file' 문제 바이너리를 대상으로 `analyze` 또
 ![result of allyajyo used in SECCON CTF 2017 ](/images/allyajyo_seccon2017.png)</br></br>
 위 그림과 같이 Flag가 보이는 원래 이미지 파일로 정상적으로 복구된 모습을 확인할 수 있었습니다.
 
+#### Binary visualizer
+VELES(CodiSec)라는 바이너리 분석 툴에서 영감을 얻은 기능입니다.</br>
+쉽게 파일을 분석하기 위해서 바이너리 파일을 그림 파일로 시각화하는 기능을 추가되었습니다.
+```
+USER@Allyajyo : visualize
+file name to visualize : README.md
+image successfully visualized and saved as 'visualized_README_md.png'
+
+USER@Allyajyo : visual
+file name to visualize : README.md
+image successfully visualized and saved as 'visualized_README_md.png'
+```
+위처럼 `visualize` 또는 `visual` 명령어로 visualizer를 실행할 수 있습니다.</br></br>
+![result of visualizing README.md file](/images/visualized_README_md.png)</br></br>
+실행 결과는 위와 같습니다.</br>
+자세한 설명은 http://nogadaworks.tistory.com/93?category=800460 를 참고해 주시면 될 것 같습니다.
+
 ## 개발 예정 및 계획
 아직은 개발되지 않았지만, 개발 중이거나 개발할 예정인 알랴죠 기능들입니다.
 
@@ -154,4 +171,4 @@ PyQT나 Tkinter 등으로 GUI 역시 개발할 계획입니다.</br>
 
 - <a href="https://github.com/HyungJu"><strong>@HyungJu(HyungJu)</strong></a> : <a href="https://github.com/JunhoYeo/Allyajyo/issues/1">First Issue</a> (mistyped message)
 
-- <a href="https://github.com/Devonnuri"><strong>@Devonnuri(뎁온누리)</strong></a> : 알랴죠에서 파생된 프로젝트 <a href="https://github.com/Devonnuri">Allyajyo-GUI</a> 개발
+- <a href="https://github.com/Devonnuri"><strong>@Devonnuri(뎁온누리)</strong></a> : 알랴죠에서 파생된 프로젝트 <a href="https://github.com/Devonnuri/Allyajyo-GUI">Allyajyo-GUI</a> 개발
