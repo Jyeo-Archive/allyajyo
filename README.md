@@ -125,6 +125,9 @@ image successfully visualized and saved as 'visualized_README_md.png'
 PE viewer 기능을 빠른 시일 내 개발하여 추가하려고 합니다.</br>
 Python pefile module을 사용하려고 하고, 물론 해당 module을 설치하지 않은 사람들을 위해서 예외 처리 역시 할 것입니다.
 
+#### ZIP password recovery
+ZIP 압축 파일의 비밀번호를 찾는 문제를 풀 수 있도록 브루트포싱과 사전 대입 공격을 이용한 ZIP 패스워드 복구 기능을 추가할 것입니다.
+
 #### Shellcode DB
 포너블 등 CTF 문제풀이에 유용하게 사용될 것으로 추정되는 기능으로, 쉘코드를 직접 등록하고 삭제 및 view가 가능하도록 구현할 예정입니다.</br>
 태그를 통해 자신의 문제풀이에 필요한 쉘코드를 빠르게 검색할 수 있어서 문제풀이뿐만이 아니라 정보보안 분야의 학습에도 도움이 될 것이라고 생각합니다.
