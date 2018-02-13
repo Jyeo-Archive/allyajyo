@@ -6,6 +6,7 @@ from modules import database
 from modules import hexViewer
 from modules import decoder
 from modules import visualizer
+from modules import zipExtracter
 def getFileExtension(file_name):
 	file_extenstion=os.path.splitext(file_name)[1]
 	return file_extenstion
@@ -57,6 +58,10 @@ while 1:
 	elif command=="visualize" or command=="visual":
 		file_name=input("file name to visualize : ")
 		visualizer.visualizer(file_name)
+	elif command="zip password recovery":
+		zip_file_name=input("zip file name to get password : ")
+		dic_file_name=input("input dictionary file name : ")
+		zipExtracter.zipExtracter(zip_file_name, dic_file_name)
 	else:
 		sys.stdout.write("not a vaild command\n")
 	sys.stdout.write("\n")
