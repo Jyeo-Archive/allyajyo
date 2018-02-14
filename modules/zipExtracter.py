@@ -4,10 +4,10 @@ from threading import Thread
 def extractzip(zFile, password):
     try:
         zFile.extractall(pwd=password)
-        sys.stdout.write("!!PASSWORD FOUND!! password is '%s'\n"%password)
+        sys.stdout.write('!!PASSWORD FOUND!! password is '%s'\n'%password)
     except:
         pass
-def ZipExtracter(filename, dicname):
+def ZipDictionary(filename, dicname):
     try:
         zFile=zipfile.Zipfile(filename)
         try:
@@ -17,6 +17,20 @@ def ZipExtracter(filename, dicname):
                 t.start()
             f.close()
         except IOError:
-            sys.stdout.write("dictionary file not found\n")
+            sys.stdout.write('dictionary file not found\n')
     except IOError:
-        sys.stdout.write("zip file not found\n")
+        sys.stdout.write('zip file not found\n')
+def ZipBrute(filename):
+    try:
+        zFile=zipfile.Zipfile(filename)
+        for password in range(0, 1000):
+            t=Thread(target=extractzip, args=(zFile, str(password)))
+            t.start()
+        f.close()
+    except IOError:
+        sys.stdout.write('zip file not found\n')
+def zipExtracter(mode, filename, dicname):
+    if mode=='dic':
+        ZipDictionary(filename, dicname)
+    else:
+        ZipBrute(filename)

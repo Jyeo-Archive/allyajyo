@@ -21,9 +21,9 @@ class Decoder: #디버깅 중에 있음
 					j=(ord(j)+key)%26
 					j+=ord('a')
 			if searchFlag(flag) is not False:
-				sys.stdout.write("flag found:")
+				sys.stdout.write('flag found:')
 				sys.stdout.write(flag)
-				sys.stdout.write("\n")
+				sys.stdout.write('\n')
 			else:
 				sys.stdout.write(flag)
-				sys.stdout.write("\n")
+				sys.stdout.write('\n')
