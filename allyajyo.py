@@ -34,10 +34,10 @@ while 1:
 			DBfile.close()
 			for item in DBlist:
 				item=item.strip('\n')
-				sys.stdout.write('<!--detecting for '%s' flag-like strings-->\n'%item)
+				sys.stdout.write("<!--detecting for '%s' flag-like strings-->\n"%item)
 				hexviewer.findFlag(item)
 		except IOError:
-			sys.stdout.write('cannot find database file '%s'\n'%flagDB_filename)
+			sys.stdout.write("cannot find database file '%s'\n"%flagDB_filename)
 			sys.stdout.write('cannot search for flags\n')
 		if getFileExtension(file_name) is '.jpg' or '.jpeg':
 			hexviewer.correctJpegData()
@@ -61,12 +61,12 @@ while 1:
 	elif command=='zip':
 		zip_file_name=input('zip file name to recover password : ')
 		sys.stdout.write('1. solve with dictionary\n2. solve with brue force\n')
-		mode='choose recovery method : '
-		if mode=='1': #딕셔내리 공격(사전파일에 있는 단어 대입) 방식으로 패스워드 얻기
+		mode=int(input('choose recovery method : '))
+		if mode==1: #딕셔내리 공격(사전파일에 있는 단어 대입) 방식으로 패스워드 얻기
 			dic_file_name=input('dictionary file name : ')
 			zipExtracter.zipExtracter('dic', zip_file_name, dic_file_name)
 		else: #브루트포싱
-			zipExtracter.zipExtracter(filename=zip_file_name)
+			zipExtracter.zipExtracter('', zip_file_name, '')
 	else:
 		sys.stdout.write('not a vaild command\n')
 	sys.stdout.write('\n')

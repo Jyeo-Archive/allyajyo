@@ -14,7 +14,7 @@ def visualizer(filename):
 			filename=filename.strip('\n')
 			filename=filename.replace('.', '_')
 			image.save('visualized_'+filename+'.png')
-			sys.stdout.write('image successfully visualized and saved as '%s'\n'%('visualized_'+filename+'.png'))
+			sys.stdout.write("image successfully visualized and saved as '%s'\n"%('visualized_'+filename+'.png'))
 		except IOError: #file open 실패
 			sys.stdout.write('file not found\n')
 	except ImportError: #Pillow 모듈이 설치되어 있지 않은 경우

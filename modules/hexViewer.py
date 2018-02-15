@@ -98,6 +98,6 @@ class hexViewer:
 					f.close()
 					sys.stdout.write('data corrected!')
 				except IOError:
-					sys.stdout.write('cannot open file '%s''%self.filename)
+					sys.stdout.write("cannot open file '%s'"%self.filename)
 				sys.stdout.write('\n')
 		self.filedata=bytes(self.filedata)
