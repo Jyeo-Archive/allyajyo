@@ -1,17 +1,28 @@
 import sys
 import zipfile
 from threading import Thread
+def passwordGenerator(num): #num=>생성할 비밀번호 자리수
+    pw_list=[]
+    count=0
+    for i in range(0, 10**num):
+        pw_list.append(str(count).zfill(num))
+        count+=1
+    return pw_list
 class zip:
-    def __init__(self, filename):
+    def __init__(self, filename, mode): #self 인스턴스, zip filename, extract mode
         self.zFile=zipfile.ZipFile(filename)
-        self.zFile=
-    def extractzip(zFile, password):
-        try:
-            zFile.extractall(pwd=bytes(password, 'UTF-8'))
-            sys.stdout.write("!!PASSWORD FOUND!! password is '%s'\n"%password)
-        except:
+        self.passwordfound=False
+    def extractzip(self, password):
+        if self.passwordfound is True:
             pass
-    def ZipDictionary(filename, dicname):
+        else:
+            try:
+                zFile.extractall(pwd=bytes(password, 'UTF-8'))
+                sys.stdout.write("!!PASSWORD FOUND!! password is '%s'\n"%password)
+                self.passwordfound=True
+            except:
+                sys.stdout.write("Trying password '%s'...\n"%password)
+    def ZipDictionary(self):
         try:
             zFile=zipfile.ZipFile(filename)
             try:
@@ -25,18 +36,24 @@ class zip:
                 sys.stdout.write('dictionary file not found\n')
         except IOError:
             sys.stdout.write('zip file not found\n')
-    def ZipBrute(filename):
-        try:
-            zFile=zipfile.ZipFile(filename)
-            brute_range=100
-            found_pass=False
-            for password in range(0, 100000):
-                t=Thread(target=extractzip, args=(zFile, str(password)))
+    def ZipBrute(self):
+        zFile=zipfile.ZipFile(filename)
+        min_range=input("input password min digits : ")
+        max_range=input("input password max digits : ")
+        for i in range(min_range, max_range):
+            pw_list=passwordGenerator(i)
+            for password in pw_list:
+                t=Thread(target=extractzip, args=(zFile, password))
                 t.start()
-        except IOError:
-            sys.stdout.write('zip file not found\n')
-    def zipExtracter(mode, filename, dicname):
-        if mode=='dic':
-            ZipDictionary(filename, dicname)
+        if self.passwordfound is False:
+            sys.stdout.write('password not found in range ')
+            for i in range(0, min_range):
+                sys.stdout.write('0')
+            sys.stdout.write(' ~ ')
+            for i in range(0, max_range):
+                sys.stdout.write('9')
+    def setmode(self, mode): #모드설정
+        if mode==1:
+            ZipDictionary() #사전대입
         else:
-            ZipBrute(filename)
+            ZipBrute() #브루트포싱

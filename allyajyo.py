@@ -12,7 +12,7 @@ def getFileExtension(file_name):
 	return file_extenstion
 os.system('cls')
 #menu
-sys.stdout.write('---Allyajyo---\n')
+sys.stdout.write('===Allyajyo===\n')
 '''
 sys.stdout.write('1. analyze file\n');
 sys.stdout.write('2. encode / decode data\n');
