@@ -4,7 +4,7 @@ import sys
 #import pefile
 from modules import database
 from modules import hexViewer
-from modules import decoder
+from modules import Decoder
 from modules import visualizer
 from modules import zipExtracter
 def getFileExtension(file_name):
@@ -41,13 +41,13 @@ while 1:
 			sys.stdout.write('cannot search for flags\n')
 		if getFileExtension(file_name) is '.jpg' or '.jpeg':
 			hexviewer.correctJpegData()
-	elif command=='2':
+	elif command=='decode':
 		data=input('data to decode : ')
-		decoder=decoder.Decoder()
-		#decoder.caesar_cipher(data)
+		decoder=Decoder.Decoder(data)
+		decoder.base64()
 	elif command=='3':
 		sys.stdout.write('this feature is in development\n')
-	elif command=='quit' or command=='exit' or command=='exit()':
+	elif command=='quit' or command=='exit' or command=='exit()' or command=='q' or command=='e':
 		sys.exit()
 	elif command=='add keyword' or command=='addkey':
 		data=input('keyword to add in database : ')
@@ -60,13 +60,13 @@ while 1:
 		visualizer.visualizer(file_name)
 	elif command=='zip':
 		zip_file_name=input('zip file name to recover password : ')
+		Zip=zipExtracter.zip(zip_file_name)
 		sys.stdout.write('1. solve with dictionary\n2. solve with brue force\n')
 		mode=int(input('choose recovery method : '))
-		if mode==1: #딕셔내리 공격(사전파일에 있는 단어 대입) 방식으로 패스워드 얻기
-			dic_file_name=input('dictionary file name : ')
-			zipExtracter.zipExtracter('dic', zip_file_name, dic_file_name)
-		else: #브루트포싱
-			zipExtracter.zipExtracter('', zip_file_name, '')
+		dicname=[]
+		if mode==1:
+			dicname=input('input dictionary file name : ')
+		Zip.setmode(mode, dicname)
 	else:
 		sys.stdout.write('not a vaild command\n')
 	sys.stdout.write('\n')

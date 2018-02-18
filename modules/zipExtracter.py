@@ -9,41 +9,38 @@ def passwordGenerator(num): #num=>생성할 비밀번호 자리수
         count+=1
     return pw_list
 class zip:
-    def __init__(self, filename, mode): #self 인스턴스, zip filename, extract mode
+    def __init__(self, filename): #self 인스턴스, zip filename
         self.zFile=zipfile.ZipFile(filename)
         self.passwordfound=False
     def extractzip(self, password):
         if self.passwordfound is True:
-            pass
+            return
         else:
             try:
-                zFile.extractall(pwd=bytes(password, 'UTF-8'))
+                self.zFile.extractall(pwd=bytes(password, 'UTF-8'))
                 sys.stdout.write("!!PASSWORD FOUND!! password is '%s'\n"%password)
                 self.passwordfound=True
             except:
                 sys.stdout.write("Trying password '%s'...\n"%password)
-    def ZipDictionary(self):
+    def ZipDictionary(self, dicname):
         try:
-            zFile=zipfile.ZipFile(filename)
-            try:
-                f=open(dicname, 'r')
-                for password in f.readlines():
-                    password=password.strip('\n')
-                    t=Thread(target=extractzip, args=(zFile, password))
-                    t.start()
-                f.close()
-            except IOError:
-                sys.stdout.write('dictionary file not found\n')
+            f=open(str(dicname), 'r')
+            for password in f.readlines():
+                password=password.strip('\n')
+                t=Thread(target=self.extractzip, args=(password,))
+                t.start()
+            f.close()
+            if self.passwordfound is False:
+                sys.stdout.write('password not found in dictionary')
         except IOError:
-            sys.stdout.write('zip file not found\n')
+            sys.stdout.write('dictionary file not found\n')
     def ZipBrute(self):
-        zFile=zipfile.ZipFile(filename)
-        min_range=input("input password min digits : ")
-        max_range=input("input password max digits : ")
-        for i in range(min_range, max_range):
+        min_range=int(input("input password min digits : "))
+        max_range=int(input("input password max digits : "))
+        for i in range(min_range, max_range+1):
             pw_list=passwordGenerator(i)
             for password in pw_list:
-                t=Thread(target=extractzip, args=(zFile, password))
+                t=Thread(target=self.extractzip, args=(password,))
                 t.start()
         if self.passwordfound is False:
             sys.stdout.write('password not found in range ')
@@ -52,8 +49,11 @@ class zip:
             sys.stdout.write(' ~ ')
             for i in range(0, max_range):
                 sys.stdout.write('9')
-    def setmode(self, mode): #모드설정
+            sys.stdout.write('\n')
+    def setmode(self, mode, dicname): #모드설정
         if mode==1:
-            ZipDictionary() #사전대입
+            self.ZipDictionary(dicname) #사전대입
+        elif mode==2:
+            self.ZipBrute() #브루트포싱
         else:
-            ZipBrute() #브루트포싱
+            sys.stdout.write('not a vaild mode\n')
