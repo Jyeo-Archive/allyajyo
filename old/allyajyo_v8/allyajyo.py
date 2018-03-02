@@ -1,29 +1,33 @@
-# -*- coding: utf-8 -*-
-# 한글주석 처리
-import os #import os module
-import sys #import sys module
+import os
+import sys
+#import base64
+#import pefile
 from modules import database
 from modules import hexViewer
 from modules import Decoder
 from modules import visualizer
 from modules import zipExtracter
-#custom Allyajyo modules
-def getFileExtension(file_name): #파일 확장자 get
+def getFileExtension(file_name):
 	file_extenstion=os.path.splitext(file_name)[1]
 	return file_extenstion
 os.system('cls')
 #menu
 sys.stdout.write('===Allyajyo===\n')
-# view README.md for available commands
+'''
+sys.stdout.write('1. analyze file\n');
+sys.stdout.write('2. encode / decode data\n');
+sys.stdout.write('3. crawl webpage\n');
+sys.stdout.write('or input other vaild Allyajyo commands\n')
+'''
 flagDB_filename='modules/database/flagDB.txt' #flagDB의 경로
 flagDB=database.database(flagDB_filename) #flagDB 선언 및 세팅
-while 1: #loop
-	command=input('USER@Allyajyo : ') #user input
-	if command=='analyze' or command=='anal': #파일분석
+while 1:
+	command=input('USER@Allyajyo : ')
+	if command=='analyze' or command=='anal':
 		file_name=input('file name to analyze : ')
 		hexviewer=hexViewer.hexViewer()
 		hexviewer.openFile(file_name)
-		#hexviewer.viewCode()
+		hexviewer.viewCode()
 		try:
 			DBfile=open(flagDB_filename, 'r')
 			DBlist=DBfile.readlines()
