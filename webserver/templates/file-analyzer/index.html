@@ -1,0 +1,142 @@
+{% block title %}
+<script type=text/javascript src="{{ url_for('static', filename='js/jquery.js') }}"></script>
+<!-- <link rel="stylesheet" href="{{ url_for('static',filename='css/file-analyzer/file-analyzer.css') }}" /> -->
+<style>
+    html, body{
+    height: 100%;
+}
+body {
+    color: white; font-size: 100%;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+.visualized {
+    position: absolute;
+    height: 255px;
+    width: 255px;
+    background-color: white;
+    /*opacity: 0.5;
+    filter: alpha(opacity=50);*/
+}
+/* .fileinfo {
+    position: absolute;
+    top: 255px;
+    height: 100%;
+    width: 255px;
+    background-color: grey;
+    opacity: 0.5;
+    filter: alpha(opacity=50);
+} */
+.hexviewer {
+    position: absolute;
+    top: 0px;
+    left: 255px;
+    height: auto;
+    width: auto;
+    background-color: palevioletred;
+    opacity: 0.5;
+    filter: alpha(opacity=50);
+}
+/* .terminal {
+    position: absolute;
+    left: 255px;
+    top: 500px;
+    height: 100%;
+    width: 100%;
+    background-color: aquamarine;
+    opacity: 0.5;
+    filter: alpha(opacity=50);
+} */
+textarea{
+    font-family: Consolas;
+    font-size: 100%;
+    overflow-y: scroll;
+    color: black;
+}
+#offset { overflow: hidden; }
+#hexcode { overflow: hidden; }
+#string { overflow: visible; }
+#string::-webkit-scrollbar {
+    width: 20px;
+    height: 10px;
+}
+#string::-webkit-scrollbar-button:start:decrement,
+#string::-webkit-scrollbar-button:end:increment  {
+    height: 10px;
+    background-color: transparent;
+}
+#string::-webkit-scrollbar-track-piece  {
+    background-color: rgba(233, 159, 119, 0.555);
+    border-radius: 16px;
+    -webkit-border-radius: 16px;
+}
+#string::-webkit-scrollbar-thumb:vertical {
+    background: linear-gradient(#EB6C27, #CB4162, #9D1A70);  
+    border: none;
+    border-radius: 16px;
+    -webkit-border-radius: 16px;
+}
+</style>
+<script type="text/javascript">
+    $(function() {
+        var $tb1 = $('textarea[id$=offset]');
+        var $tb2 = $('textarea[id$=hexcode]');
+        var $tb3 = $('textarea[id$=string]');
+        $tb3.scroll(function() {
+            $tb1.scrollTop($tb3.scrollTop());
+            $tb2.scrollTop($tb3.scrollTop());
+        });
+    });
+</script>
+<!-- <script>
+    $(function() {
+        var offset = '';
+        var hexcode = '';
+        var string = '';
+        var offset_data = JSON.parse('{{ filedata_offset }}');
+        for (var i = 0; i < '{{ filedata_length }}'; i++){
+            offset += offset_data[i];
+        }
+        document.getElementById("offset").value = offset;
+    });
+</script> -->
+<style>
+body {
+    margin: 0; 
+    background-image: url("../../static/assets/analyzer_background.png");  
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    max-width: 100%; max-height: 100%;
+}
+</style>
+{% endblock %}
+{% block body %}
+    <div class="visualized">
+        <img src="{{ url_for('static', filename = image) }}"/>
+    </div>
+    <div class="fileinfo">
+        <p>filename : {{ filename }}</p>
+    </div>
+    <div class="hexviewer" id="hexviewer">
+        <textarea id="offset" rows="20" cols="10"><!--
+            -->{% for offset in filedata_offset %}<!--
+                -->{{ offset+'\n' }}<!--
+            -->{% endfor %}<!--
+        --></textarea>
+        <textarea id="hexcode" rows="20" cols="52"><!--
+            -->{% for hexcode_line in filedata_hexcode %}<!--
+                -->{% for hexcode in hexcode_line %}<!--
+                    -->{{hexcode + ' '}}<!--
+                -->{% endfor %}<!--
+                -->{{'\n'}}<!--
+            -->{% endfor %}<!--
+        --></textarea>
+        <textarea id="string" rows="20" cols="17"><!--
+            -->{% for string in filedata_string %}<!--
+                -->{{ string+'\n' }}<!--
+            -->{% endfor %}<!--
+        --></textarea>
+    </div>
+    <div class="terminal"></div>
+</body>
+{% endblock %}

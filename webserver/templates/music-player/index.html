@@ -1,0 +1,76 @@
+{% block title %}
+<link rel="stylesheet" href="{{ url_for('static',filename='css/music-player/music-player.css') }}" />
+<link rel="stylesheet" href="{{ url_for('static',filename='css/music-player/window-style.css') }}" />
+<script>
+    if (typeof module === 'object') {
+        window.module = module; 
+        module = undefined;
+    }
+</script>
+<script type=text/javascript src="{{ url_for('static', filename='js/jquery.js') }}"></script>
+<script type=text/javascript src="{{ url_for('static', filename='js/window.js') }}"></script>
+<script>
+    if (window.module) 
+        module = window.module;
+</script>
+{% endblock %}
+<body>
+    <div id="title-bar">
+        <div id="title">Allyajyo: Music</div>
+        <div class="title-bar-btns">
+            <button id="min-btn"><b>-</b></button>
+            <button id="max-btn"><b>+</b></button>
+            <button id="close-btn"><b>x</b></button>
+        </div>
+    </div>
+    <div class="current-music-info">
+        <h1 style="margin-bottom: -3%;">{{ tags[0] | replace('C:/Users/JunhoYeo/music/', '') }}</h1>
+        <p style="margin-bottom: 15%;">{{ tags[1] }} / {{ tags[2] }}</p>
+        <div id='container'>
+            <div id='box-left' style="margin-left: 10%">
+                <input type="image" src="{{url_for('static', filename='assets/prev.png')}}" 
+                height="60px" width="60px" onclick="window.location.reload();">
+            </div>
+            <div id="box-center">
+                <button class='playpause' style="margin-left: 10%" 
+                    onclick="playpause_click();"></button>
+            </div>
+            <div id='box-right' style="margin-right: 10%;">
+                <input type="image" src="{{url_for('static', filename='assets/next.png')}}" 
+                height="60px" width="60px" onclick="window.location.reload();">
+            </div>
+        </div>
+    </div>
+    <script>
+        function playpause_click() {
+            if ($(".playpause").prop('className') == "playpause") 
+                soundFile.play();
+            else
+                soundFile.pause();
+        }
+        $(document).ready(function() {
+            var btn = $(".playpause");
+            btn.click(function() {
+                btn.toggleClass("paused");
+                return false;
+            });
+        });
+        //Create the audio tag
+        var soundFile = document.createElement("audio");
+        soundFile.preload = "auto";
+        //Load the sound file (using a source element for expandability)
+        var src = document.createElement("source");
+        src.src = "{{ url_for('static', filename = music_name ) }}";
+        soundFile.appendChild(src);
+        //Load the audio tag
+        //It auto plays as a fallback
+        soundFile.load();
+        soundFile.volume = 0.5;
+        soundFile.play();
+        $(".playpause").toggleClass("paused");
+        //https://stackoverflow.com/questions/11330917/how-to-play-a-mp3-using-javascript
+        soundFile.addEventListener('ended', function(){
+            window.location.reload();
+        });
+    </script>
+</body>

@@ -1,0 +1,71 @@
+html, body{
+    height: 100%;
+}
+body {
+    color: white; font-size: 100%;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+.visualized {
+    position: absolute;
+    height: 255px;
+    width: 255px;
+    background-color: white;
+    /*opacity: 0.5;
+    filter: alpha(opacity=50);*/
+}
+.fileinfo {
+    position: absolute;
+    top: 255px;
+    height: 100%;
+    width: 255px;
+    background-color: grey;
+    opacity: 0.5;
+    filter: alpha(opacity=50);
+}
+.hexviewer {
+    position: absolute;
+    left: 255px;
+    height: 500px;
+    width: 100%;
+    background-color: palevioletred;
+    opacity: 0.5;
+    filter: alpha(opacity=50);
+}
+.terminal {
+    position: absolute;
+    left: 255px;
+    top: 500px;
+    height: 100%;
+    width: 100%;
+    background-color: aquamarine;
+    opacity: 0.5;
+    filter: alpha(opacity=50);
+}
+textarea{
+    font-family: Consolas;
+    font-size: 100%;
+    overflow-y: scroll;
+}
+#offset { overflow: hidden; }
+#hexcode { overflow: hidden; }
+#string { overflow: visible; }
+hexviewer::-webkit-scrollbar {
+    width: 20px;
+    height: 10px;
+}
+hexviewer::-webkit-scrollbar-button:start:decrement,
+hexviewer::-webkit-scrollbar-button:end:increment  {
+    height: 10px;
+    background-color: transparent;
+}
+hexviewer::-webkit-scrollbar-track-piece  {
+    background-color: rgba(233, 159, 119, 0.555);
+    border-radius: 16px;
+    -webkit-border-radius: 16px;
+}
+hexviewer::-webkit-scrollbar-thumb:vertical {
+    background: linear-gradient(#EB6C27, #CB4162, #9D1A70);  
+    border: none;
+    border-radius: 16px;
+    -webkit-border-radius: 16px;
+}

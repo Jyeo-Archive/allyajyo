@@ -1,0 +1,141 @@
+@font-face {
+    font-family: Roboto;
+    font-style: normal;
+	font-weight: 100;
+    src: url("../webserver/static/css/fonts/Roboto-Thin.ttf");
+}
+body {
+    background-image: url("../assets/mainpage_background.png");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-color: white;
+    color: white;
+    max-width: 100%;
+    max-height: 100%;
+}
+.allyajyologo {
+    width: 120px;
+    height: 171px;
+    mix-blend-mode: undefined;
+    position: absolute;
+    left: 12px;
+    top: 10px;
+}
+.text.Allyajyo {
+    width: 192.5px;
+    height: 58px;
+    mix-blend-mode: undefined;
+    position: absolute;
+    left: 146.5px;
+    top: -5.5px;
+    font-family: Roboto;
+    font-size: 60px;
+    font-weight: 100;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
+    color: #fefefe;
+}
+.text.for-faster-better-CTF-quals {
+    width: auto;
+    height: 16.5px;
+    mix-blend-mode: undefined;
+    position: absolute;
+    left: 145.5px;
+    top: 100.5px;
+    font-family: Roboto;
+    font-size: 16.5px;
+    font-weight: 100;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
+    color: #fefefe;
+}
+.text.File-Analyzer.title {
+    width: auto;
+    height: 35px;
+    mix-blend-mode: undefined;
+    position: absolute;
+    left: 463.5px;
+    top: 111px;
+    font-family: Roboto;
+    font-size: 36px;
+    font-weight: 300;
+    font-style: normal;
+    font-stretch: condensed;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
+    color: #96d5ea;
+}
+.text.Music-Player.title {
+    width: auto;
+    height: 35px;
+    mix-blend-mode: undefined;
+    position: absolute;
+    left: 463.5px;
+    top: 253px;
+    font-family: Roboto;
+    font-size: 36px;
+    font-weight: 300;
+    font-style: normal;
+    font-stretch: condensed;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
+    color: #e4bbcb;
+}  
+.text.File-Analyzer.intro {
+    width: 147px;
+    height: 40.5px;
+    mix-blend-mode: undefined;
+    position: absolute;
+    left: 491.5px;
+    top: 165px;
+    font-family: Roboto;
+    font-size: 16.5px;
+    font-weight: 100;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.45;
+    letter-spacing: normal;
+    text-align: left;
+    color: #ffffff;
+}
+.text.Music-Player.intro {
+    width: auto;
+    height: 40.5px;
+    mix-blend-mode: undefined;
+    position: absolute;
+    left: 493px;
+    top: 305px;
+    font-family: Roboto;
+    font-size: 16.5px;
+    font-weight: 100;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.45;
+    letter-spacing: normal;
+    text-align: left;
+    color: #ffffff;
+}
+.icon.allyajyo_analyzer {
+    width: 71px;
+    height: 71px;
+    position: absolute;
+    left: 377px;
+    top: 150px;
+    mix-blend-mode: undefined;
+}
+.icon.allyajyo_music {
+    width: 71px;
+    height: 71px;
+    position: absolute;
+    left: 377px;
+    top: 291px;
+    mix-blend-mode: undefined;
+}

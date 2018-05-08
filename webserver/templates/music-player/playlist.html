@@ -1,0 +1,112 @@
+{% block title %}
+<link rel="stylesheet" href="{{ url_for('static',filename='css/music-player/playlist.css') }}" />
+<link rel="stylesheet" href="{{ url_for('static',filename='css/music-player/window-style.css') }}" />
+<style>
+    body {
+        background-color: {{ colors[0] }};
+    }
+</style>
+<script>
+    if (typeof module === 'object') {
+        window.module = module; 
+        module = undefined;
+    }
+</script>
+<script type=text/javascript src="{{ url_for('static', filename='js/playlist.js') }}"></script>
+<script type=text/javascript src="{{ url_for('static', filename='js/jquery.js') }}"></script>
+<script type=text/javascript src="{{ url_for('static', filename='js/rainbowvis.js') }}"></script>
+<script type=text/javascript src="{{ url_for('static', filename='js/placeholderTypewriter.js') }}"></script>
+<script type=text/javascript src="{{ url_for('static', filename='js/window.js') }}"></script>
+<script>
+    if (window.module) 
+        module = window.module;
+</script>
+{% endblock %}
+{% block body %}
+    <div class="search">
+        <div id="title-bar">
+            <div id="title">Allyajyo: Music</div>
+            <div class="title-bar-btns">
+                <button id="min-btn"><b>-</b></button>
+                <button id="max-btn"><b>+</b></button>
+                <button id="close-btn"><b>x</b></button>
+            </div>
+        </div>
+        <input type="text" name="search" id="search" autofocus>
+        <!-- <button type="submit" class="searchButton">검색</button> -->
+    </div>
+    <div class="playlist">
+    <div class="list">
+        <ul>
+            <li><a href="javascript:void(0);" onclick="openRandomMusicPlayer()">PLAY RANDOM</a></a></li>
+            <!-- open /music-random window -->
+            {% for music in playlist %}
+                <li>
+                    <a href="javascript:void(0);" onclick="openMusicPlayer('{{ music | replace('\\', '\\\\') }}')">
+                        {{music | replace(music_path+'\\', '') | replace('.mp3', '')}}
+                    </a>
+                    <!-- open '/play/<musicfilepath> window -->
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    </div>
+    <script>
+        var placeholderText = [
+            " Search Music wih Filename",
+            " How's it going?",
+            " Hope you enjoy this",
+            " Happy Hacking!",
+            " You can do it",
+            " What Music do you like?",
+            " Trust yourself...",
+            " ...And don't give up",
+            " (grin)"
+        ]
+        $('#search').placeholderTypewriter({text: placeholderText});
+        
+        var color1 = '{{ colors[0] }}';
+        var color2 = '{{ colors[1] }}';
+        var color3 = '{{ colors[2] }}';
+        var numberOfItems = '{{ ( playlist | length / 2 ) + 1 }}';
+        var rainbow = new Rainbow(); 
+        rainbow.setNumberRange(1, numberOfItems);
+        rainbow.setSpectrum(color1, color2);
+        var gradientColors1 = [];
+        for (var i = 1; i <= numberOfItems; i++) {
+            var hexColour = rainbow.colourAt(i);
+            gradientColors1.push(hexColour);
+        }
+        rainbow.setNumberRange(1, numberOfItems);
+        rainbow.setSpectrum(color2, color3);
+        var gradientColors2 = [];
+        for (var i = 1; i <= numberOfItems; i++) {
+            var hexColour = rainbow.colourAt(i);
+            gradientColors2.push(hexColour);
+        }
+        var gradientColors = gradientColors1.concat(gradientColors2);
+        $('.playlist > .list > ul > li').each(function(){
+            $(this).css('background-color', gradientColors[$(this).index()])
+        });
+        $('.playlist > .list > ul > li').hover(function() {
+            $(this).css('background-color', 'lightgrey');
+            $(this).find('a').css('color', 'black');
+        }, function(){
+            $(this).css("background-color", gradientColors[$(this).index()]);
+            $(this).find('a').css('color', 'white');
+        });
+
+        //https://gist.github.com/dennysfredericci/ca99b08648649b545dfd/revisions
+        $('#search').bind('keyup', function() {
+            var searchString = $(this).val();
+            $("ul li").each(function(index, value) {
+                currentName = $(value).text()
+                if( currentName.toUpperCase().indexOf(searchString.toUpperCase()) > -1) {
+                    $(value).show();
+                } else {
+                    $(value).hide();
+                }
+            });
+        });
+    </script>
+{% endblock %}

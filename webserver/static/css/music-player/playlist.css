@@ -1,0 +1,115 @@
+@import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
+body {
+    text-align: center;
+    /* background: -webkit-linear-gradient(#EB6C27, #CB4162, #9D1A70);   */
+    /* Chrome 10-25, Safari 5.1-6 */
+    /* background: linear-gradient(#EB6C27, #CB4162, #9D1A70);   */
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    font-size: 120%;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+.playlist a { 
+    text-decoration: none; 
+    color: white;
+}
+.playlist ul {
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+}
+.playlist li {
+    margin: 0px;
+    padding: 0px;
+}
+.search input {
+    background: white;
+    color: black;
+    font-size: 120%;
+}
+::-webkit-input-placeholder { /* Chrome 4–56 */
+    color: white;
+}
+:-moz-placeholder { /* Firefox 4–18 */
+    color: white;
+    opacity:  1;
+}
+::-moz-placeholder { /* Firefox 19–50 */
+    color: white;
+    opacity:  1;
+}
+:-ms-input-placeholder { /* IE 10+ */
+    color:  white;
+}
+::placeholder { /* Firefox 51+, Chrome 57+ */
+    color: white;
+    opacity:  1;
+}
+.search input {
+    margin-top: 10px;
+    height: 30px;
+    width: 250px;
+    border: none;
+    font-size: 80%;
+    font-family: 'Consolas';
+    background: #2b303b;
+    /* padding-left: 45px; */
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+
+    -webkit-transition: background .55s ease;
+    -moz-transition: background .55s ease;
+    -ms-transition: background .55s ease;
+    -o-transition: background .55s ease;
+    transition: background .55s ease;
+}
+.search input:hover, .search input:focus, .search input:active {
+    outline:none;
+    background: #ffffff;
+    color: black;
+}
+.search input:focus::-webkit-input-placeholder { /* Chrome 4–56 */
+    color: black;
+}
+.search input:focus:-moz-placeholder { /* Firefox 4–18 */
+    color: black;
+    opacity:  1;
+}
+.search input:focus::-moz-placeholder { /* Firefox 19–50 */
+    color: black;
+    opacity:  1;
+}
+.search input:focus:-ms-input-placeholder { /* IE 10+ */
+    color:  black;
+}
+.search input:focus::placeholder { /* Firefox 51+, Chrome 57+ */
+    color: black;
+    opacity:  1;
+}
+/* .search button {
+    border: none;
+    background: #99AAB5;
+    color : black;
+} */
+.search {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    height: 100px;
+    width: 100%;
+    text-align: center;
+    background-color: #343d46;
+    z-index: 1;
+}
+.playlist {
+    z-index: 0;
+}
+.list {
+    position: absolute;
+    width: 100%;
+    left: 0px;
+    margin-top: 100px;
+    text-align: center;
+}
