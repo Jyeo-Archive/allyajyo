@@ -1,3 +1,4 @@
+import os
 import sys
 from PIL import Image
 def visualize(filename):
@@ -12,7 +13,10 @@ def visualize(filename):
 			image.putpixel((filedata[i+1], filedata[i]), (255, 255, 255))
 		filename=filename.strip('\n')
 		filename=filename.replace('.', '_')
-		imageName = './webserver/static/temp/visualized_'+filename+'.png'
+		tempDir = './webserver/static/temp/'
+		if not os.path.exists(tempDir):
+			os.makedirs(tempDir)
+		imageName = tempDir + 'visualized_' + filename + '.png'
 		image.save(imageName)
 		imageName = imageName.replace('./webserver/static/', '')
 		sys.stdout.write("image successfully visualized and saved as '%s'\n"%('visualized_'+filename+'.png'))
