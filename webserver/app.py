@@ -42,6 +42,8 @@ def music_play(musicfile):
     # 요청받은 음악 파일 경로의 음악 파일을 재생
     # 양 옆 버튼 누르면 페이지 reload
     tempDir = './webserver/static/temp/'
+    if not os.path.exists(tempDir):
+        os.makedirs(tempDir)
     list( map( os.unlink, (os.path.join(tempDir,f) for f in os.listdir(tempDir)) ) )
     music = musicfile
     music_tags = get_music_tags(music)
@@ -56,11 +58,13 @@ def music_play(musicfile):
         tags = music_tags
     )
 
-@app.route("/music-random")
+@app.route('/music-random')
 def music_play_random():
     # 사용자의 <음악> 폴더에서 랜덤 음악 하나를 재생 
     # 음악 하나만 가져오고, 양 옆 버튼 누르면 페이지 reload
     tempDir = './webserver/static/temp/'
+    if not os.path.exists(tempDir):
+        os.makedirs(tempDir)
     list( map( os.unlink, (os.path.join(tempDir,f) for f in os.listdir(tempDir)) ) )
     music = get_random_music()
     print(music)
@@ -75,7 +79,11 @@ def music_play_random():
         tags = music_tags
     )
 
-@app.route("/file-analysis", methods=['GET'])
+@app.route('/file-upload')
+def file_upload():
+    pass
+
+@app.route('/file-analysis', methods=['GET'])
 def file_analysis():
     filename = request.args.get('file')
     # print (os.getcwd()) # C:\Users\JunhoYeo\Documents\allyajyo-electron 기준
@@ -157,5 +165,5 @@ def file_analysis():
         filedata_string = hexviewerData_string_line
     )
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     app.run(host='127.0.0.1', debug=True, port=5000)
