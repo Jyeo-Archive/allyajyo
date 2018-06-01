@@ -1,0 +1,29 @@
+<!DOCTYPE <!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Kakao Chatbot Emulator</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/kakao-chatbot-emulator/style.css') }}" />
+    <style>
+        body{
+            background: url("{{ url_for('static',filename='assets/emulator_background.jpg') }}") no-repeat center center fixed;
+        }
+    </style>
+</head>
+<body>
+    <section class="home">
+        <div class="content">
+            <div class="code">{{ json_recv }}</div>
+            <li>
+                {% for button in buttons %}
+                <form method="GET" action="/kakao/get-input">
+                    <input type="submit" name="message" value="{{ button }}" class="button">
+                </form>
+                {% endfor %}
+            </li>
+        </div>
+    </section>
+</body>
+</html>

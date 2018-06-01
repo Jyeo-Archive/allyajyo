@@ -17,12 +17,18 @@ from threading import Thread
 #         playlist_tags.append(music_tags)
 
 app = Flask(__name__)
+from emulator import kakao_chatbot_emulator
+app.register_blueprint(kakao_chatbot_emulator, url_prefix='/kakao')
 # global playlist
 # playlist = get_playlist()
 
-@app.route('/playlist')
-def playlist():
-    # 플레이리스트 
+@app.route('/')
+def main():
+    return "hello"
+
+@app.route('/music/playlist')
+def music_playlist():
+    # 플레이리스트
     playlist = get_playlist()
     # print(playlist)
     for idx, music in enumerate(playlist):
@@ -37,14 +43,14 @@ def playlist():
         colors = gradients
     )
 
-@app.route('/play/<path:musicfile>')
+@app.route('/music/play/<path:musicfile>')
 def music_play(musicfile):
     # 요청받은 음악 파일 경로의 음악 파일을 재생
     # 양 옆 버튼 누르면 페이지 reload
     tempDir = './webserver/static/temp/'
     if not os.path.exists(tempDir):
         os.makedirs(tempDir)
-    list( map( os.unlink, (os.path.join(tempDir,f) for f in os.listdir(tempDir)) ) )
+    # list( map( os.unlink, (os.path.join(tempDir,f) for f in os.listdir(tempDir)) ) )
     music = musicfile
     music_tags = get_music_tags(music)
     print(music_path())
@@ -53,16 +59,16 @@ def music_play(musicfile):
     temp_file = temp_file.replace('./webserver/static/', '')
     # replace_path = music_path() + '\\'
     return render_template(
-        'music-player/index.html', 
-        music_name = temp_file, 
+        'music-player/index.html',
+        music_name = temp_file,
         tags = music_tags
     )
 
-@app.route('/music-random')
+@app.route('/music/music-random')
 def music_play_random():
-    # 사용자의 <음악> 폴더에서 랜덤 음악 하나를 재생 
+    # 사용자의 <음악> 폴더에서 랜덤 음악 하나를 재생
     # 음악 하나만 가져오고, 양 옆 버튼 누르면 페이지 reload
-    tempDir = './webserver/static/temp/'
+    tempDir = './webserver/static/'
     if not os.path.exists(tempDir):
         os.makedirs(tempDir)
     list( map( os.unlink, (os.path.join(tempDir,f) for f in os.listdir(tempDir)) ) )
@@ -74,8 +80,8 @@ def music_play_random():
     # replace_path = music_path() + '\\'
     temp_file = temp_file.replace('./webserver/static/', '')
     return render_template(
-        'music-player/index.html', 
-        music_name = temp_file, 
+        'music-player/index.html',
+        music_name = temp_file,
         tags = music_tags
     )
 
@@ -93,7 +99,7 @@ def file_analysis():
         data = data & 0xFF
     filedata_size = os.path.getsize(filename)
     visualizedImageName = visualize(filename)
-    
+
     # filedata를 처리 => offset(오프셋 값), hexcode(헥스코드), string(문자열)
     # sys.stdout.write('[Offset]')
 	# for i in range(0, 6):
@@ -106,13 +112,13 @@ def file_analysis():
     hexviewerData_offset_line = []
     hexviewerData_hexcode_line = []
     hexviewerData_string_line = []
-    filedata_length=0;
+    filedata_length=0
     if filedata_size%bufferSize==0:
-    	filedata_length=filedata_size/bufferSize;
+    	filedata_length=filedata_size/bufferSize
     else:
-    	filedata_length=(filedata_size/bufferSize)+1;
+    	filedata_length=(filedata_size/bufferSize)+1
     offset=0; read=0
-    hexviewerData_line = int(filedata_length);
+    hexviewerData_line = int(filedata_length)
     for i in range(0, int(filedata_length)):
         # hexviewerData_offset = []
         # hexviewerData_string = []
@@ -130,7 +136,7 @@ def file_analysis():
                 # sys.stdout.write(' ')
                 counter+=1
             n+=1
-        offset+=n;
+        offset+=n
         # if (bufferSize*3+5)-(n*3+counter)>0:
         # 	for j in range(0, (bufferSize*3+5)-(n*3+counter)):
         # 		sys.stdout.write(' ')
@@ -145,7 +151,7 @@ def file_analysis():
                     hexviewerData_string_temp += ('.')
             except IndexError:
                 hexviewerData_string_temp += ('.')
-        read+=n;
+        read+=n
         hexviewerData_string_line.append(hexviewerData_string_temp)
         # sys.stdout.write('\n')
         # hexviewerData_offset_line.append(hexviewerData_offset)

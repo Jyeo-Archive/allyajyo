@@ -8,8 +8,8 @@ function openPlaylist() {
       frame: false
     });
     musicWindow.setMenu(null);
-    //musicWindow.setResizable(false);
-    musicWindow.loadURL('http://localhost:5000/playlist');
+    // musicWindow.setResizable(false);
+    musicWindow.loadURL('http://localhost:5000/music/playlist');
     // musicWindow.webContents.openDevTools();
     musicWindow.webContents.session.clearCache(function(){});
 }
@@ -22,5 +22,18 @@ function openFileAnalyzer() {
     fileWindow.setMenu(null);
     //fileWindow.setResizable(false);
     fileWindow.loadURL('http://localhost:5000/file-analysis');
-    fileWindow.webContents.session.clearCache(function(){});    
+    fileWindow.webContents.openDevTools();
+    fileWindow.webContents.session.clearCache(function(){});
+}
+function openChatbotEmulator() {
+    const remote = require('electron').remote;
+    const BrowserWindow = remote.BrowserWindow;
+    var fileWindow = new BrowserWindow({
+      width: 800, height: 500
+    });
+    fileWindow.setMenu(null);
+    //fileWindow.setResizable(false);
+    fileWindow.loadURL('http://localhost:5000/kakao');
+    // fileWindow.webContents.openDevTools();
+    fileWindow.webContents.session.clearCache(function(){});
 }

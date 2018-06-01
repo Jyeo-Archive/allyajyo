@@ -9,7 +9,7 @@ function openRandomMusicPlayer() { // 랜덤 음악을 재생하는 플레이어
     });
     musicWindow.setMenu(null);
     //musicWindow.setResizable(false);
-    musicWindow.loadURL('http://localhost:5000/music-random');
+    musicWindow.loadURL('http://localhost:5000/music/music-random');
     musicWindow.webContents.session.clearCache(function(){});
 }
 function openMusicPlayer(filename) { // 특정 음악을 재생하는 플레이어 윈도우 열기
@@ -23,7 +23,7 @@ function openMusicPlayer(filename) { // 특정 음악을 재생하는 플레이�
     });
     musicWindow.setMenu(null);
     //musicWindow.setResizable(false);
-    musicWindow.loadURL('http://localhost:5000/play/' + filename);
+    musicWindow.loadURL('http://localhost:5000/music/play/' + filename);
     // musicWindow.webContents.openDevTools();    
     musicWindow.webContents.session.clearCache(function(){});
 }
